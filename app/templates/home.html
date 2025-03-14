@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+
+
+    <!-- Welcome Message -->
+<div class="container mt-5 p-4 rounded shadow-lg text-center bg-gradient" style="background: linear-gradient(to right, #8b9eb1, #00509d);">
+    <h2 class="text-primary fw-bold"> Welcome to the Book Store !</h2>
+    <p class="text-primary fs-5">Discover amazing books and explore new stories!</p>
+</div>
+
+        <!-- Buttons for Adding Books & Authors -->
+        <div class="d-flex justify-content-around  p-3 mb-4 mt-3">
+            <a href="{{ url_for('main.add_books') }}" class="btn btn-primary me-3 px-4 py-2"> Add New Book</a>
+            <a href="{{ url_for('main.add_author') }}" class="btn btn-primary px-4 py-2">  Add New Author</a>
+          
+            <a href="{{ url_for('main.all_authors') }}" class="btn btn-primary px-4 me-3 py-2">  All Authors</a>
+        </div>
+
+    <!-- Book Cards Grid -->
+    <div class="row mt-4">
+        {% for book in books %}
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div class="card shadow-lg border-0 rounded-3">
+                <img class="card-img-top img-fluid rounded-top" src="{{ book.image }}" alt="Book Cover" style="height: 250px; object-fit: contain;">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold text-primary">{{ book.title }}</h5>
+                    <a href="{{ url_for('main.book_detail', id=book.id) }}" class="btn btn-outline-dark fw-bold">  Show Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

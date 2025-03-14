@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Sign Up{% endblock %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow-lg p-4 rounded" style="max-width: 500px; width: 100%;">
+        <h2 class="text-center text-primary mb-4">Create an Account</h2>
+
+        <!-- Display validation errors -->
+        {% if errors %}
+            <div class="alert alert-danger" role="alert">
+                <ul class="mb-0">
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <form method="POST">
+            {{ form.hidden_tag() }}  <!-- CSRF token -->
+            
+            <div class="mb-3">
+                {{ form.username.label(class="form-label fw-bold") }}
+                {{ form.username(class="form-control") }}
+                {% if form.username.errors %}
+                    <div class="text-danger small">{{ form.username.errors[0] }}</div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.email.label(class="form-label fw-bold") }}
+                {{ form.email(class="form-control") }}
+                {% if form.email.errors %}
+                    <div class="text-danger small">{{ form.email.errors[0] }}</div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.password.label(class="form-label fw-bold") }}
+                {{ form.password(class="form-control") }}
+                {% if form.password.errors %}
+                    <div class="text-danger small">{{ form.password.errors[0] }}</div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.confirm_password.label(class="form-label fw-bold") }}
+                {{ form.confirm_password(class="form-control") }}
+                {% if form.confirm_password.errors %}
+                    <div class="text-danger small">{{ form.confirm_password.errors[0] }}</div>
+                {% endif %}
+            </div>
+            <div>
+                Do you have an account? <a href="{{url_for('auth.login')}}">Login</a>
+            </div>
+{{form.submit(class="btn btn-primary")}}
+        </form>
+ 
+    </div>
+</div>
+{% endblock %}

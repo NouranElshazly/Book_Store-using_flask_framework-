@@ -1,0 +1,18 @@
+{%extends 'base.html'%}
+{% block title %}Home Page {% endblock %}
+{% block content %} 
+      <a href="{{url_for('main.add_books')}}" class="btn btn-primary p-2 m-5">Add new author</a>
+
+        <h4 class="text-lg-center pt-5  text-danger">Welcome To Authors Details</h2>
+          <div class="d-flex gap-6  p-5 flex-lg-wrap justify-content-between" style="margin-bottom: 150px;">
+            {% for author in authors %}
+            <div class="card m-2" style="width: 18rem;">
+
+                <div class="card-body ">
+                  <h5 class="card-title">{{author.name}}</h5>
+                   <a href="{{url_for('main.author_details',  id=author.id) }}" class="btn btn-primary">show Details</a>
+                   <a href="{{url_for('main.delete_author',  id=author.id) }}" class="btn btn-primary">Delete Author</a>
+                </div>
+              </div>
+              {% endfor %}
+{% endblock %}

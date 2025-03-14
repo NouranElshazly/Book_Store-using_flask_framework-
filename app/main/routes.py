@@ -1,4 +1,4 @@
-from flask_login import login_required
+from flask_login import login_required, logout_user
 from app.models import Book , Author
 from app import db
 from app.main.forms import AuthorForm, BookForm
@@ -129,3 +129,8 @@ def page_not_found(e):
 @main_blueprint.errorhandler(500)
 def page_not_found(e):
     return render_template ('500.html')
+
+@main_blueprint.route('/logout' , endpoint='logout', methods=['GET', 'POST']) 
+def logout():
+    logout_user()
+    return redirect(url_for('logib'))

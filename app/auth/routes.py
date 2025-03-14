@@ -7,7 +7,7 @@ from app.models import User
 from app import db
 auth_blueprint = Blueprint('auth', __name__ , url_prefix='/auth')
 from flask import flash
-from flask_login import login_required, login_user
+from flask_login import login_required, login_user, logout_user
 
 @auth_blueprint.route('/register', methods=['GET', 'POST'], endpoint='register')
 def register():
@@ -31,10 +31,9 @@ def login():
             flash('Login Unsuccessful. Please check email and password', 'danger')
             return render_template('auth/login.html' , form=form)
     return render_template('auth/login.html' , form=form)
-        
-@auth_blueprint.route('/logout',  endpoint='logout')
+@auth_blueprint.route('/logout', endpoint='logout')
 @login_required
 def logout():
-    return redirect(url_for('auth.login'))    
-   
-
+    logout_user()  # Ensure user session is cleared
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('auth.login'))
